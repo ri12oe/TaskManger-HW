@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     color: "black",
-    padding: 20,
   },
   content: {
     flex: 1,
