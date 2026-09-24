@@ -29,7 +29,22 @@ export default function HomeScreen() {
             <Text style={styles.addButtontext}>+</Text>
           </Pressable>
         </View>
+
+        <View style={styles.filter}>
+        <Pressable style={[styles.filterButton, styles.filterButtonActive]}>
+          <Text style={styles.filterTextActive}>All</Text>
+        </Pressable>
+        <Pressable style={styles.filterButton}>
+          <Text style={styles.filterText}>Active</Text>
+        </Pressable>
+        <Pressable style={styles.filterButton}>
+          <Text style={styles.filterText}>Completed</Text>
+        </Pressable>
+        </View>
       </View>
+
+      
+
     </SafeAreaView>
   );
 }
@@ -76,5 +91,21 @@ const styles = StyleSheet.create({
     fontSize: 32,
     marginTop: -6,
     borderRadius: 2,
+  },
+  filter: {
+    flexDirection: "row",
+    gap: 24,
+    marginBottom: 24,
+  },
+  filterButton: {
+  },
+  filterButtonActive: {
+
+  },
+  filterText: {
+
+  },
+  filterTextActive: {
+
   },
 });
