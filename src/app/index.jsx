@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import {
@@ -6,15 +6,89 @@ import {
   Manrope_800ExtraBold,
   Manrope_700Bold,
   Manrope_500Medium,
+  Manrope_600SemiBold,
   useFonts,
 } from "@expo-google-fonts/manrope";
 
 export default function HomeScreen() {
+  const tasks = [
+     {
+      id: "1",
+      title: "Finish N322 grading",
+      category: "SCHOOL",
+      dueDate: "Due Today",
+      completed: false,
+    },
+     {
+      id: "2",
+      title: "Pick up groceries",
+      category: "PERSONAL",
+      dueDate: "Due Today",
+      completed: false,
+    },
+     {
+      id: "3",
+      title: "Review lecture slides",
+      category: "SCHOOL",
+      dueDate: "Due Today",
+      completed: true,
+    },
+     {
+      id: "4",
+      title: "Work on website",
+      category: "WORK",
+      dueDate: "Due Friday",
+      completed: false,
+    },
+     {
+      id: "5",
+      title: "Team meeting prep",
+      category: "WORK",
+      dueDate: "Due Saturday",
+      completed: false,
+    },
+  ];
+
+  function getCatergoryStyle(catergory) {
+    if (catergory === "SCHOOL") {
+      return styles.schoolCatergory
+    }
+    if (catergory === "PERSONAL") {
+      return styles.personalCatergory
+    }
+    if (catergory === "WORK") {
+      return styles.workCatergory
+    }
+    return styles.workCatergory
+  }
+
+  function renderTask({ item }) {
+    return (
+      <View style={styles.taskCard}>
+        <View style={[styles.checkBox, item.completed && styles.checkBoxCompleted]}>
+          {item.completed && (<Text style={styles.checkMarked}>✓</Text>)}
+        </View>
+
+        <View style={styles.taskConent}>
+          <View style={styles.taskMeta}>
+            <Text style={[styles.category, getCatergoryStyle(item.category)]}>{item.category.toUpperCase()}</Text>
+
+            <Text style={styles.dueDate}>Due: {item.dueDate}</Text>
+          </View>
+          <Text style={[styles.taskTitle, item.completed && styles.taskTitleCompleted]}>{item.title}</Text>
+        </View>
+
+        <Text style={styles.chevron}>›</Text>
+      </View>
+    );
+  }
+
   const [fontsLoaded] = useFonts({
     Manrope_400Regular,
     Manrope_800ExtraBold,
     Manrope_700Bold,
     Manrope_500Medium,
+    Manrope_600SemiBold
   });
 
   if (!fontsLoaded) {
@@ -45,6 +119,16 @@ export default function HomeScreen() {
           <Text style={styles.filterText}>Completed</Text>
         </Pressable>
         </View>
+
+        <Text style={styles.sectionTitle}>MY TASKS</Text>
+
+        <FlatList
+          data={tasks}
+          renderItem={renderTask}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+
       </View>
 
       
@@ -123,4 +207,98 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: "Manrope_700Bold"
   },
+  sectionTitle: {
+    fontFamily: "Manrope_700bold",
+    fontSize: 12,
+    color: "#8E8E93",
+    marginBottom: 10,
+  },
+  schoolCatergory: {
+    backgroundColor: "#E8F0FE",
+    color: "#3478F6",
+    fontFamily: "Manrope_700bold",
+  },
+  workCatergory: {
+    backgroundColor: "#FFF4E5",
+    color: "#FF9500",
+    fontFamily: "Manrope_700bold",
+  },
+  personalCatergory: {
+    backgroundColor: "#EAF9EE",
+    color: "#34C759",
+    fontFamily: "Manrope_700bold",
+  },
+  taskCard: {
+    minHeight: 72,
+    backgroundColor: "#ffffff",
+    borderRadius: 16,
+    marginBottom: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    flexDirection: "row",
+    alignItems: "center",
+
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    elevation: 10,
+  },
+  checkBox: {
+    width: 24,
+    height: 24,
+    borderColor: "#E5E5EA",
+    borderRadius: 12,
+    borderWidth: 2,
+    marginRight: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  checkBoxCompleted: {
+    backgroundColor: "#3478F6",
+    borderColor: "#3478F6",
+  },
+  checkMarked: {
+    color: "#fff",
+    fontFamily: "Manrope_700bold",
+  },
+  taskConent: {
+    flex: 1,
+  },
+  taskMeta: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 5,
+  },
+  dueDate: {
+    color: "#8E8E93",
+    fontSize: 11,
+    fontFamily: "Manrope_500Medium",
+  },
+  category: {
+    fontSize: 11,
+    fontFamily: "Manrope_700bold",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+    overflow: "hidden",
+  },
+  taskTitle: {
+    fontSize: 15,
+    color:"#1C1C1E",
+    fontFamily: "Manrope_600SemiBold",
+  },
+  taskTitleCompleted: {
+    textDecorationLine: "line-through",
+    color: "#8E8E93",
+  },
+  chevron: {
+    color: "#AEAEB2",
+    fontSize: 32,
+    marginLeft: 13,
+  }
 });
