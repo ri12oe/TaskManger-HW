@@ -4,6 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Manrope_400Regular,
   Manrope_800ExtraBold,
+  Manrope_700Bold,
+  Manrope_500Medium,
   useFonts,
 } from "@expo-google-fonts/manrope";
 
@@ -11,6 +13,8 @@ export default function HomeScreen() {
   const [fontsLoaded] = useFonts({
     Manrope_400Regular,
     Manrope_800ExtraBold,
+    Manrope_700Bold,
+    Manrope_500Medium,
   });
 
   if (!fontsLoaded) {
@@ -94,18 +98,29 @@ const styles = StyleSheet.create({
   },
   filter: {
     flexDirection: "row",
-    gap: 24,
+    gap: 8,
     marginBottom: 24,
   },
   filterButton: {
+    backgroundColor: "#fff",
+    borderColor: "#E5E5EA",
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderWidth: 1,
   },
   filterButtonActive: {
-
+    backgroundColor: "#3478F6",
+    borderColor: "#3478F6",
   },
   filterText: {
-
+    fontSize: 14,
+    fontFamily: "Manrope_500Medium",
+    color: "#1C1C1E",
   },
   filterTextActive: {
-
+    color: "#FFF",
+    fontSize: 14,
+    fontFamily: "Manrope_700Bold"
   },
 });
