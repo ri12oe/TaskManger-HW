@@ -16,8 +16,8 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  View,
   TextInput,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -200,16 +200,30 @@ export default function HomeScreen() {
             </View>
             <View style={styles.sheetContent}>
               <View style={styles.taskForm}>
-                <Text style={styles.taskTitle}>Task Title</Text>
+                <Text style={styles.formTitle}>Task Title</Text>
                 <TextInput
                   style={styles.taskInput}
                   placeholder="Enter task title..."
                   placeholderTextColor="#6b7280"
-                  
                 />
               </View>
-              {/* <View style={styles.categoryForm}></View>
-              <View style={styles.dueDateForm}></View> */}
+              <View style={styles.categoryForm}>
+                <Text style={styles.formTitle}>Category</Text>
+                <View style={styles.categoryFilter}>
+                  <Pressable
+                    style={[styles.filterButton2, styles.filterButtonActive]}
+                  >
+                    <Text style={styles.filterTextActive2}>School</Text>
+                  </Pressable>
+                  <Pressable style={styles.filterButton2}>
+                    <Text style={styles.filterText2}>Personal</Text>
+                  </Pressable>
+                  <Pressable style={styles.filterButton2}>
+                    <Text style={styles.filterText2}>Work</Text>
+                  </Pressable>
+                </View>
+              </View>
+              {/* <View style={styles.dueDateForm}></View> */}
             </View>
           </Animated.View>
         </Modal>
@@ -265,12 +279,26 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 24,
   },
+  categoryFilter: {
+    flexDirection: "row",
+    gap: 8,
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   filterButton: {
     backgroundColor: "#fff",
     borderColor: "#E5E5EA",
     borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 8,
+    borderWidth: 1,
+  },
+  filterButton2: {
+    backgroundColor: "#fff",
+    borderColor: "#E5E5EA",
+    borderRadius: 20,
+    paddingHorizontal: 26,
+    paddingVertical: 10,
     borderWidth: 1,
   },
   filterButtonActive: {
@@ -281,6 +309,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: "Manrope_500Medium",
     color: "#1C1C1E",
+  },
+  filterText2: {
+    fontSize: 14,
+    fontFamily: "Manrope_500Medium",
+    color: "#1C1C1E",
+    textAlign: "center",
+  },
+  filterTextActive2: {
+    color: "#FFF",
+    fontSize: 14,
+    fontFamily: "Manrope_700Bold",
+    textAlign: "center",
   },
   filterTextActive: {
     color: "#FFF",
@@ -434,7 +474,7 @@ const styles = StyleSheet.create({
   taskForm: {
     marginBottom: 20,
   },
-  taskTitle: {
+  formTitle: {
     textTransform: "uppercase",
     color: "#8E8E93",
     fontFamily: "Manrope_700bold",
@@ -452,5 +492,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     fontFamily: "Manrope_500Medium",
     fontSize: 15,
-  }
+  },
+  categoryForm: {},
 });
