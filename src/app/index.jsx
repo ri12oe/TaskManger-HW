@@ -6,6 +6,7 @@ import {
   Manrope_800ExtraBold,
   useFonts,
 } from "@expo-google-fonts/manrope";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRef, useState } from "react";
 import {
   Animated,
@@ -16,9 +17,9 @@ import {
   StyleSheet,
   Text,
   View,
+  TextInput,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SHEET_HEIGHT = SCREEN_HEIGHT * 0.5;
@@ -190,10 +191,26 @@ export default function HomeScreen() {
             <View style={styles.sheetHeader}>
               <Text style={styles.sheetTitle}>Add Task</Text>
               <Pressable style={styles.closeButton} onPress={closeSheet}>
-                <MaterialCommunityIcons name="close-circle-outline" size={24} color="#1C1C1E" />
+                <MaterialCommunityIcons
+                  name="close-circle-outline"
+                  size={24}
+                  color="#1C1C1E"
+                />
               </Pressable>
             </View>
-            {/* TextInput, category pills, due date row, Add Task button, Cancel */}
+            <View style={styles.sheetContent}>
+              <View style={styles.taskForm}>
+                <Text style={styles.taskTitle}>Task Title</Text>
+                <TextInput
+                  style={styles.taskInput}
+                  placeholder="Enter task title..."
+                  placeholderTextColor="#6b7280"
+                  
+                />
+              </View>
+              {/* <View style={styles.categoryForm}></View>
+              <View style={styles.dueDateForm}></View> */}
+            </View>
           </Animated.View>
         </Modal>
       </View>
@@ -402,7 +419,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 26,
-
   },
   closeButton: {
     width: 32,
@@ -411,5 +427,30 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     justifyContent: "center",
     alignItems: "center",
+  },
+  sheetContent: {
+    // backgroundColor: 'red',
+  },
+  taskForm: {
+    marginBottom: 20,
+  },
+  taskTitle: {
+    textTransform: "uppercase",
+    color: "#8E8E93",
+    fontFamily: "Manrope_700bold",
+    fontSize: 12,
+    marginBottom: 8,
+  },
+  taskInput: {
+    width: "100%",
+    maxWidth: 350,
+    borderColor: "#E5E5EA",
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    backgroundColor: "#FFFFFF",
+    fontFamily: "Manrope_500Medium",
+    fontSize: 15,
   }
 });
