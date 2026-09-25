@@ -16,6 +16,7 @@ import {
   FlatList,
   Modal,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -24,7 +25,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
-const SHEET_HEIGHT = SCREEN_HEIGHT * 0.5;
+const SHEET_MAX_HEIGHT = SCREEN_HEIGHT * 0.85;
 
 export default function HomeScreen() {
   const tasks = [
@@ -119,7 +120,7 @@ export default function HomeScreen() {
   });
 
   const [modalVisible, setModalVisible] = useState(false);
-  const translateY = useRef(new Animated.Value(SHEET_HEIGHT)).current;
+  const translateY = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
 
   function openSheet() {
     setModalVisible(true);
@@ -132,7 +133,7 @@ export default function HomeScreen() {
 
   function closeSheet() {
     Animated.timing(translateY, {
-      toValue: SHEET_HEIGHT,
+      toValue: SCREEN_HEIGHT,
       duration: 220,
       useNativeDriver: true,
     }).start(() => setModalVisible(false));
@@ -200,7 +201,11 @@ export default function HomeScreen() {
                 />
               </Pressable>
             </View>
-            <View style={styles.sheetContent}>
+            <ScrollView
+              style={styles.sheetContent}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
               <View style={styles.taskForm}>
                 <Text style={styles.formTitle}>Task Title</Text>
                 <TextInput
@@ -209,6 +214,7 @@ export default function HomeScreen() {
                   placeholderTextColor="#6b7280"
                 />
               </View>
+
               <View style={styles.categoryForm}>
                 <Text style={styles.formTitle}>Category</Text>
                 <View style={styles.categoryFilter}>
@@ -225,23 +231,30 @@ export default function HomeScreen() {
                   </Pressable>
                 </View>
               </View>
+
               <View style={styles.dueDateForm}>
                 <Text style={styles.formTitle}>Due Date</Text>
-                <View style={styles.dueDatePicker}>
-                  <Pressable style={styles.dateInputRow}>
-                    <View style={styles.dateInputLeft}>
-                      <Feather name="calendar" size={24} color="#3478F6" />
-                      <TextInput
-                        style={styles.dateInput}
-                        placeholder="Today, October 24"
-                        placeholderTextColor="#1C1C1E"
-                        editable={false}
-                      />
-                    </View>
-                    <Entypo name="chevron-down" size={24} color="#8E8E93" />
-                  </Pressable>
-                </View>
+                <Pressable style={styles.dateInputRow}>
+                  <View style={styles.dateInputLeft}>
+                    <Feather name="calendar" size={24} color="#3478F6" />
+                    <TextInput
+                      style={styles.dateInputText}
+                      placeholder="Today, October 24"
+                      placeholderTextColor="#1C1C1E"
+                      editable={false}
+                    />
+                  </View>
+                  <Entypo name="chevron-down" size={24} color="#8E8E93" />
+                </Pressable>
               </View>
+            </ScrollView>
+            <View style={styles.addTaskSection}>
+              <Pressable style={styles.addTaskButton}>
+                <Text style={styles.addTaskText}>Add Task</Text>
+              </Pressable>
+              <Pressable onPress={closeSheet}>
+                <Text style={styles.cancelText}>Cancel</Text>
+              </Pressable>
             </View>
           </Animated.View>
         </Modal>
@@ -447,13 +460,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: SHEET_HEIGHT,
+    maxHeight: SHEET_MAX_HEIGHT,
     backgroundColor: "#fff",
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     paddingHorizontal: 20,
     paddingVertical: 8,
-    padding: 20,
+    paddingTop: 12,
+    paddingBottom: 24,
+    flexDirection: "column",
   },
   sheetTitle: {
     fontFamily: "Manrope_800ExtraBold",
@@ -486,7 +501,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   sheetContent: {
-    // backgroundColor: 'red',
+    marginBottom: 24,
   },
   taskForm: {
     marginBottom: 20,
@@ -510,40 +525,65 @@ const styles = StyleSheet.create({
     fontFamily: "Manrope_500Medium",
     fontSize: 15,
   },
-  dateInput: {
-    width: "100%",
-    maxWidth: 350,
+  // dateInput: {
+  //   width: "100%",
+  //   maxWidth: 350,
+  //   borderColor: "#E5E5EA",
+  //   borderWidth: 1,
+  //   borderRadius: 12,
+  //   paddingHorizontal: 16,
+  //   paddingVertical: 14,
+  //   backgroundColor: "#FFFFFF",
+  //   fontFamily: "Manrope_500Medium",
+  //   fontSize: 15,
+  // },
+  categoryForm: {
+    marginBottom: 20,
+  },
+  dateInputRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
     borderColor: "#E5E5EA",
     borderWidth: 1,
     borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: "#FFFFFF",
-    fontFamily: "Manrope_500Medium",
+  },
+  dateInputLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  dateInputText: {
+    fontSize: 15,
+    fontFamily: "Manrope_600SemiBold",
+    color: "#1C1C1E",
+  },
+  addTaskSection: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 12,
+  },
+  addTaskButton: {
+    backgroundColor: "#3478F6",
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    borderRadius: 14,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  addTaskText: {
+    color: "#FFFFFF",
+    fontFamily: "Manrope_700Bold",
+    fontSize: 16,
+  },
+  cancelText: {
+    color: "#8E8E93",
+    fontFamily: "Manrope_600SemiBold",
     fontSize: 15,
   },
-  categoryForm: {
-    marginBottom: 20,
-  },
-  dateInputRow: {
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  backgroundColor: "#fff",
-  borderColor: "#E5E5EA",
-  borderWidth: 1,
-  borderRadius: 12,
-  paddingHorizontal: 16,
-  paddingVertical: 14,
-},
-dateInputLeft: {
-  flexDirection: "row",
-  alignItems: "center",
-  gap: 10,
-},
-dateInput: {
-  fontSize: 15,
-  fontFamily: "Manrope_600SemiBold",
-  color: "#1C1C1E",
-},
 });
