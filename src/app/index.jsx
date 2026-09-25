@@ -18,6 +18,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 const SHEET_HEIGHT = SCREEN_HEIGHT * 0.5;
@@ -182,8 +183,16 @@ export default function HomeScreen() {
           <Animated.View
             style={[styles.sheet, { transform: [{ translateY }] }]}
           >
-            {/* Add Task form goes here */}
-            <Text style={styles.sheetTitle}>Add Task</Text>
+            <View style={styles.grabber}>
+              <Pressable style={styles.Innergrabber} />
+            </View>
+
+            <View style={styles.sheetHeader}>
+              <Text style={styles.sheetTitle}>Add Task</Text>
+              <Pressable style={styles.closeButton} onPress={closeSheet}>
+                <MaterialCommunityIcons name="close-circle-outline" size={24} color="#1C1C1E" />
+              </Pressable>
+            </View>
             {/* TextInput, category pills, due date row, Add Task button, Cancel */}
           </Animated.View>
         </Modal>
@@ -366,15 +375,41 @@ const styles = StyleSheet.create({
     right: 0,
     height: SHEET_HEIGHT,
     backgroundColor: "#fff",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    paddingHorizontal: 20,
+    paddingVertical: 8,
     padding: 20,
   },
   sheetTitle: {
     fontFamily: "Manrope_800ExtraBold",
     fontSize: 20,
     color: "#1C1C1E",
-    marginBottom: 26,
-    marginTop: 40,
   },
+  grabber: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  Innergrabber: {
+    width: 36,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: "#E5E5EA",
+    marginBottom: 24,
+  },
+  sheetHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 26,
+
+  },
+  closeButton: {
+    width: 32,
+    height: 32,
+    backgroundColor: "#F5F5F7",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  }
 });
