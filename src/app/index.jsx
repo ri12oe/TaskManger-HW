@@ -515,7 +515,6 @@ const styles = StyleSheet.create({
   },
   taskInput: {
     width: "100%",
-    maxWidth: 350,
     borderColor: "#E5E5EA",
     borderWidth: 1,
     borderRadius: 12,
@@ -525,18 +524,6 @@ const styles = StyleSheet.create({
     fontFamily: "Manrope_500Medium",
     fontSize: 15,
   },
-  // dateInput: {
-  //   width: "100%",
-  //   maxWidth: 350,
-  //   borderColor: "#E5E5EA",
-  //   borderWidth: 1,
-  //   borderRadius: 12,
-  //   paddingHorizontal: 16,
-  //   paddingVertical: 14,
-  //   backgroundColor: "#FFFFFF",
-  //   fontFamily: "Manrope_500Medium",
-  //   fontSize: 15,
-  // },
   categoryForm: {
     marginBottom: 20,
   },
