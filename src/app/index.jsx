@@ -6,6 +6,8 @@ import {
   Manrope_800ExtraBold,
   useFonts,
 } from "@expo-google-fonts/manrope";
+import Entypo from "@expo/vector-icons/Entypo";
+import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRef, useState } from "react";
 import {
@@ -223,7 +225,23 @@ export default function HomeScreen() {
                   </Pressable>
                 </View>
               </View>
-              {/* <View style={styles.dueDateForm}></View> */}
+              <View style={styles.dueDateForm}>
+                <Text style={styles.formTitle}>Due Date</Text>
+                <View style={styles.dueDatePicker}>
+                  <Pressable style={styles.dateInputRow}>
+                    <View style={styles.dateInputLeft}>
+                      <Feather name="calendar" size={24} color="#3478F6" />
+                      <TextInput
+                        style={styles.dateInput}
+                        placeholder="Today, October 24"
+                        placeholderTextColor="#1C1C1E"
+                        editable={false}
+                      />
+                    </View>
+                    <Entypo name="chevron-down" size={24} color="#8E8E93" />
+                  </Pressable>
+                </View>
+              </View>
             </View>
           </Animated.View>
         </Modal>
@@ -281,7 +299,6 @@ const styles = StyleSheet.create({
   },
   categoryFilter: {
     flexDirection: "row",
-    gap: 8,
     alignItems: "center",
     justifyContent: "space-between",
   },
@@ -493,5 +510,40 @@ const styles = StyleSheet.create({
     fontFamily: "Manrope_500Medium",
     fontSize: 15,
   },
-  categoryForm: {},
+  dateInput: {
+    width: "100%",
+    maxWidth: 350,
+    borderColor: "#E5E5EA",
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    backgroundColor: "#FFFFFF",
+    fontFamily: "Manrope_500Medium",
+    fontSize: 15,
+  },
+  categoryForm: {
+    marginBottom: 20,
+  },
+  dateInputRow: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  backgroundColor: "#fff",
+  borderColor: "#E5E5EA",
+  borderWidth: 1,
+  borderRadius: 12,
+  paddingHorizontal: 16,
+  paddingVertical: 14,
+},
+dateInputLeft: {
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 10,
+},
+dateInput: {
+  fontSize: 15,
+  fontFamily: "Manrope_600SemiBold",
+  color: "#1C1C1E",
+},
 });
